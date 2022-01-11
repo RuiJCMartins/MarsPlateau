@@ -1,5 +1,5 @@
 ﻿using MarsPlateau.Models;
-using System;
+using System.Collections.Generic;
 
 namespace MarsPlateau
 {
@@ -31,62 +31,22 @@ namespace MarsPlateau
             }
         }
 
-        public static Directions ChangeDirection(Directions currentDirection, char command)
+        public static Dictionary<(Commands, Directions), Directions> SetCommandAndDirection()
         {
-            Directions newDirection = new Directions();
-            bool directionChanged = false;
-
-            if (command == ((char)Commands.Left))
-            {
-                if (currentDirection == Directions.North)
+            return new Dictionary<(Commands, Directions), Directions>
                 {
-                    newDirection = Directions.West;
-                }
+                    { (Commands.Left, Directions.North), Directions.West },
+                    { (Commands.Right, Directions.South), Directions.West },
 
-                if (currentDirection == Directions.South)
-                {
-                    newDirection = Directions.East;
-                }
+                    { (Commands.Left, Directions.South), Directions.East },
+                    { (Commands.Right, Directions.North), Directions.East },
 
-                if (currentDirection == Directions.West)
-                {
-                    newDirection = Directions.South;
-                }
+                    { (Commands.Left, Directions.West), Directions.South },
+                    { (Commands.Right, Directions.East), Directions.South },
 
-                if (currentDirection == Directions.East)
-                {
-                    newDirection = Directions.North;
-                }
-
-                directionChanged = true;
-            }
-
-            if (command == ((char)Commands.Right))
-            {
-                if (currentDirection == Directions.North)
-                {
-                    newDirection = Directions.East;
-                }
-
-                if (currentDirection == Directions.South)
-                {
-                    newDirection = Directions.West;
-                }
-
-                if (currentDirection == Directions.West)
-                {
-                    newDirection = Directions.North;
-                }
-
-                if (currentDirection == Directions.East)
-                {
-                    newDirection = Directions.South;
-                }
-
-                directionChanged = true;
-            }
-
-            return directionChanged ? newDirection : currentDirection;
+                    { (Commands.Left, Directions.East), Directions.North },
+                    { (Commands.Right, Directions.West), Directions.North }
+                };
         }
     }
 }
